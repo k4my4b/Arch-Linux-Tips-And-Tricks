@@ -13,7 +13,7 @@ sudo pacman -S --needed irqbalance
 sudo systemctl enable irqbalance.service
 ```
 
-## Ananicy
+## Ananicy (community driven automatic process cpu/io priority assignment)
 ```
 trizen -S ananicy-git --noedit
 
