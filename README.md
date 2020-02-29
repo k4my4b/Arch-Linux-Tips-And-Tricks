@@ -6,7 +6,7 @@ pkgfile -u
 
 echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
 ```
-## irqbalance
+## irqbalance (spread out interrupts across all cores)
 ```
 sudo pacman -S --needed irqbalance
 
@@ -45,3 +45,4 @@ trizen -S kwin-lowlatency
     WindowsBlockCompositing=true
     XRenderSmoothScale=false
     ```
+## 
