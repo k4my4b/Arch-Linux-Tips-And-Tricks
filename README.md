@@ -14,7 +14,7 @@ sudo pacman -S --needed irqbalance
 sudo systemctl enable irqbalance.service
 ```
 
-## Ananicy 
+## Ananicy <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup>
 >(community driven automatic process cpu/io priority assignment)
 ```
 trizen -S ananicy-git --noedit
@@ -22,7 +22,7 @@ trizen -S ananicy-git --noedit
 sudo systemctl enable ananicy.service
 ```
 
-## kwin-lowlatency 
+## kwin-lowlatency <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup>
 >(fork of kwin with major performance improvements)
 ```
 trizen -S kwin-lowlatency
