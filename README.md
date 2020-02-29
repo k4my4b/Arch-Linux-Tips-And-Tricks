@@ -20,7 +20,7 @@ trizen -S ananicy-git --noedit
 sudo systemctl enable ananicy.service
 ```
 
-## kwin-lowlatency 
+## kwin-lowlatency (fork of kwin with major performance improvements)
 ```
 trizen -S kwin-lowlatency
 ```
