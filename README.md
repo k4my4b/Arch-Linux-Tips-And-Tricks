@@ -6,21 +6,24 @@ pkgfile -u
 
 echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
 ```
-## irqbalance (spread out interrupts across all cores)
+## irqbalance 
+>(spread out interrupts across all cores)
 ```
 sudo pacman -S --needed irqbalance
 
 sudo systemctl enable irqbalance.service
 ```
 
-## Ananicy (community driven automatic process cpu/io priority assignment)
+## Ananicy 
+>(community driven automatic process cpu/io priority assignment)
 ```
 trizen -S ananicy-git --noedit
 
 sudo systemctl enable ananicy.service
 ```
 
-## kwin-lowlatency (fork of kwin with major performance improvements)
+## kwin-lowlatency 
+>(fork of kwin with major performance improvements)
 ```
 trizen -S kwin-lowlatency
 ```
