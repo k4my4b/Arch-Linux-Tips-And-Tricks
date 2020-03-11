@@ -39,7 +39,7 @@ trizen -S kwin-lowlatency
     HiddenPreviews=5
     LatencyControl=0
     MaxFPS=240
-    MaxLatency=8
+    MaxLatency=4
     MinLatency=0
     OpenGLIsUnsafe=false
     RefreshRate=240
@@ -47,6 +47,10 @@ trizen -S kwin-lowlatency
     VSyncMechanism=1
     WindowsBlockCompositing=true
     XRenderSmoothScale=true
-
     ```
-## 
+## Enable nvidia services
+```
+sudo systemctl enable nvidia-hibernate
+sudo systemctl enable nvidia-resume
+sudo systemctl enable nvidia-suspend
+```
