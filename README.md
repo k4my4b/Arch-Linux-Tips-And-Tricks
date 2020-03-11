@@ -1,4 +1,4 @@
-## command-not-found
+## command-not-found (there are better options)
 ```
 sudo pacman -S --needed pkgfile
 
