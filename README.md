@@ -33,7 +33,7 @@ trizen -S kwin-lowlatency
     AnimationCurve=2
     Backend=OpenGL
     Enabled=true
-    GLCore=true
+    GLCore=false
     GLPreferBufferSwap=n
     GLTextureFilter=2
     HiddenPreviews=5
@@ -43,9 +43,10 @@ trizen -S kwin-lowlatency
     MinLatency=0
     OpenGLIsUnsafe=false
     RefreshRate=240
-    UnredirectFullscreen=true
-    VSyncMechanism=0
+    UnredirectFullscreen=false
+    VSyncMechanism=1
     WindowsBlockCompositing=true
-    XRenderSmoothScale=false
+    XRenderSmoothScale=true
+
     ```
 ## 
