@@ -27,7 +27,7 @@ sudo systemctl enable ananicy.service
 ```
 trizen -S kwin-lowlatency
 ```
-- kwinrc (~/.config/kwinrc)
+- kwinrc (~/.config/kwinrc) **settings for my 240hz dispaly**
     ```
     [Compositing]
     AnimationCurve=2
