@@ -54,3 +54,31 @@ sudo systemctl enable nvidia-hibernate
 sudo systemctl enable nvidia-resume
 sudo systemctl enable nvidia-suspend
 ```
+
+## Enable (basic) networking via systemd 
+```
+sudo systemctl enable systemd-networkd
+sudo systemctl enable systemd-resolved
+```
+- > sudo vim /etc/systemd/network/20-wired.network
+    ```
+    [Match]
+    Name=enp*
+
+    [Network]
+    DHCP=ipv4
+
+    [DHCP]
+    RouteMetric=10
+    ```
+- > sudo vim /etc/systemd/network/25-wireless.network
+    ```
+    [Match]
+    Name=wlp*
+
+    [Network]
+    DHCP=ipv4
+
+    [DHCP]
+    RouteMetric=20
+    ```
