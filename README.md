@@ -58,7 +58,12 @@ sudo systemctl enable nvidia-hibernate
 sudo systemctl enable nvidia-resume
 sudo systemctl enable nvidia-suspend
 ```
-
+## Adding Nvidia driver modules to initramfs
+> sudo vim /etc/mkinitcpio.conf
+-   ```
+    MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+    ```
+> sudo mkinitcpio -p \<profile e.g linux-zen>
 ## Enable (basic) networking via systemd 
 ```
 sudo systemctl enable systemd-networkd
