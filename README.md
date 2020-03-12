@@ -72,8 +72,7 @@ sudo systemctl enable systemd-resolved
 - > sudo vim /etc/systemd/network/20-wired.network
     ```
     [Match]
-    <!-- Name=enp* -->
-    Type=ether
+    Type=ether #Name=, PermanentMACAddress=, Path=, Driver=
 
     [Network]
     DHCP=ipv4
@@ -84,8 +83,7 @@ sudo systemctl enable systemd-resolved
 - > sudo vim /etc/systemd/network/25-wireless.network
     ```
     [Match]
-    <!-- Name=wlp* -->
-    Type=wlan
+    Type=wlan #Name=, PermanentMACAddress=, Path=, Driver=
 
     [Network]
     DHCP=ipv4
