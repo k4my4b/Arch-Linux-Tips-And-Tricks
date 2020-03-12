@@ -48,7 +48,11 @@ trizen -S kwin-lowlatency
     WindowsBlockCompositing=true
     XRenderSmoothScale=true
     ```
-## Enable nvidia services
+## Install Nvidia drivers
+```
+sudo pacman -S --needed nvidia-dkms 
+```
+## Enable Nvidia services
 ```
 sudo systemctl enable nvidia-hibernate
 sudo systemctl enable nvidia-resume
