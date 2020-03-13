@@ -1,15 +1,24 @@
 ## kernels that failed the test of desktop responsive vs high workload
+
 ```
-linux-ck 
-linux-lqx 
-linux-clear 
-linux-pf 
+linux-ck
+linux-lqx
+linux-clear
+linux-pf
 linux-xanmod
 ```
+
 linux remains quite balanced and should suffice for most people \
-linux-zen runs scheduler at 1000hz, it's a bit more aggressive and better suited for realtime applications. 
+linux-zen runs scheduler at 1000hz, it's a bit more aggressive and better suited for realtime applications.
+
+## Siera Breeze Enhanced <sup>[AUR](https://aur.archlinux.org/packages/kwin-decoration-sierra-breeze-enhanced-git/)</sup>
+
+```
+trizen -S kwin-decoration-sierra-breeze-enhanced-git --noedit
+```
 
 ## command-not-found (there are better options)
+
 ```
 sudo pacman -S --needed pkgfile
 
@@ -17,8 +26,11 @@ pkgfile -u
 
 echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
 ```
-## irqbalance 
->(spread out interrupts across all cores)
+
+## irqbalance
+
+> (spread out interrupts across all cores)
+
 ```
 sudo pacman -S --needed irqbalance
 
@@ -26,7 +38,9 @@ sudo systemctl enable irqbalance.service
 ```
 
 ## Ananicy <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup>
->(community driven automatic process cpu/io priority assignment)
+
+> (community driven automatic process cpu/io priority assignment)
+
 ```
 trizen -S ananicy-git --noedit
 
@@ -34,92 +48,115 @@ sudo systemctl enable ananicy.service
 ```
 
 ## kwin-lowlatency <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup>
->(fork of kwin with major performance improvements)
+
+> (fork of kwin with major performance improvements)
+
 ```
 trizen -S kwin-lowlatency
 ```
+
 - kwinrc (~/.config/kwinrc) **settings for my 240hz dispaly**
-    ```
-    [Compositing]
-    AnimationCurve=2
-    Backend=OpenGL
-    Enabled=true
-    GLCore=false
-    GLPreferBufferSwap=n
-    GLTextureFilter=2
-    HiddenPreviews=5
-    LatencyControl=0
-    MaxFPS=240
-    MaxLatency=4
-    MinLatency=0
-    OpenGLIsUnsafe=false
-    RefreshRate=240
-    UnredirectFullscreen=false
-    VSyncMechanism=1
-    WindowsBlockCompositing=true
-    XRenderSmoothScale=true
-    ```
+  ```
+  [Compositing]
+  AnimationCurve=2
+  Backend=OpenGL
+  Enabled=true
+  GLCore=false
+  GLPreferBufferSwap=n
+  GLTextureFilter=2
+  HiddenPreviews=5
+  LatencyControl=0
+  MaxFPS=240
+  MaxLatency=4
+  MinLatency=0
+  OpenGLIsUnsafe=false
+  RefreshRate=240
+  UnredirectFullscreen=false
+  VSyncMechanism=1
+  WindowsBlockCompositing=true
+  XRenderSmoothScale=true
+  ```
+
 ## Install Nvidia drivers
+
 ```
-sudo pacman -S --needed nvidia-dkms 
+sudo pacman -S --needed nvidia-dkms
 ```
+
 ## Enable Nvidia services
+
 ```
 sudo systemctl enable nvidia-hibernate
 sudo systemctl enable nvidia-resume
 sudo systemctl enable nvidia-suspend
 ```
+
 ## Adding Nvidia driver modules to initramfs
+
 > sudo vim /etc/mkinitcpio.conf
--   ```
-    MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
-    ```
-> sudo mkinitcpio -p \<profile e.g linux-zen>
-## Enable (basic) networking via systemd 
+
+- ````
+      MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+      ```
+  > sudo mkinitcpio -p \<profile e.g linux-zen>
+  ````
+
+## Enable (basic) networking via systemd
+
 ```
 sudo systemctl enable systemd-networkd
 
 sudo systemctl enable systemd-resolved
 ```
+
 - > sudo vim /etc/systemd/network/wired.network
-    ```
-    [Match]
-    Type=ether #Name=, PermanentMACAddress=, Path=, Driver=
 
-    [Network]
-    DHCP=ipv4
+      ```
+      [Match]
+      Type=ether #Name=, PermanentMACAddress=, Path=, Driver=
 
-    [DHCP]
-    RouteMetric=10
-    ```
-`The following is only needed for wifi enabled systems`
+      [Network]
+      DHCP=ipv4
+
+      [DHCP]
+      RouteMetric=10
+      ```
+
+  `The following is only needed for wifi enabled systems`
+
 - > sudo vim /etc/systemd/network/wireless.network
-    ```
-    [Match]
-    Type=wlan #Name=, PermanentMACAddress=, Path=, Driver=
 
-    [Network]
-    DHCP=ipv4
+  ```
+  [Match]
+  Type=wlan #Name=, PermanentMACAddress=, Path=, Driver=
 
-    [DHCP]
-    RouteMetric=20
-    ```
+  [Network]
+  DHCP=ipv4
+
+  [DHCP]
+  RouteMetric=20
+  ```
+
 ```
 sudo pacman -S --needed wpa_supplicant
 ```
+
 - > sudo vim /etc/wpa_supplicant/wpa_supplicant-\<interface name>.conf
-    ```
-    ctrl_interface=/run/wpa_supplicant
-    ctrl_interface_group=wheel
-    update_config=1
-    eapol_version=1
-    ap_scan=1
-    fast_reauth=1
-    ```
+  ```
+  ctrl_interface=/run/wpa_supplicant
+  ctrl_interface_group=wheel
+  update_config=1
+  eapol_version=1
+  ap_scan=1
+  fast_reauth=1
+  ```
+
 ```
 sudo systemctl enable wpa_supplicant@<interface name>
 ```
+
 `wpa_gui provides an interface for all wifi related stuff you'll need, run it with -qt to start (q)uitely in (t)ray`
+
 ```
 trizen -S wpa_supplicant_gui
 ```
