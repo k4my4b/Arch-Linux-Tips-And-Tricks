@@ -1,3 +1,14 @@
+## kernels that failed the test of desktop responsive vs high workload
+```
+linux-ck 
+linux-lqx 
+linux-clear 
+linux-pf 
+linux-xanmod
+```
+linux remains quite balanced and should suffice for most people \
+linux-zen runs scheduler at 1000hz, it's a bit more aggressive and better suited for realtime applications. 
+
 ## command-not-found (there are better options)
 ```
 sudo pacman -S --needed pkgfile
