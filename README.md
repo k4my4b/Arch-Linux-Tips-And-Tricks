@@ -67,9 +67,10 @@ sudo systemctl enable nvidia-suspend
 ## Enable (basic) networking via systemd 
 ```
 sudo systemctl enable systemd-networkd
+
 sudo systemctl enable systemd-resolved
 ```
-- > sudo vim /etc/systemd/network/20-wired.network
+- > sudo vim /etc/systemd/network/wired.network
     ```
     [Match]
     Type=ether #Name=, PermanentMACAddress=, Path=, Driver=
@@ -80,7 +81,8 @@ sudo systemctl enable systemd-resolved
     [DHCP]
     RouteMetric=10
     ```
-- > sudo vim /etc/systemd/network/25-wireless.network
+`The following is only needed for wifi enabled systems`
+- > sudo vim /etc/systemd/network/wireless.network
     ```
     [Match]
     Type=wlan #Name=, PermanentMACAddress=, Path=, Driver=
@@ -91,3 +93,22 @@ sudo systemctl enable systemd-resolved
     [DHCP]
     RouteMetric=20
     ```
+```
+sudo pacman -S --needed wpa_supplicant
+```
+- > sudo vim /etc/wpa_supplicant/wpa_supplicant-\<interface name>.conf
+    ```
+    ctrl_interface=/run/wpa_supplicant
+    ctrl_interface_group=wheel
+    update_config=1
+    eapol_version=1
+    ap_scan=1
+    fast_reauth=1
+    ```
+```
+sudo systemctl enable wpa_supplicant@<interface name>
+```
+`wpa_gui provides an interface for all wifi related stuff you'll need run it with -qt to start in tray`
+```
+trizen -S wpa_supplicant_gui
+```
