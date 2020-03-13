@@ -108,7 +108,7 @@ sudo pacman -S --needed wpa_supplicant
 ```
 sudo systemctl enable wpa_supplicant@<interface name>
 ```
-`wpa_gui provides an interface for all wifi related stuff you'll need run it with -qt to start in tray`
+`wpa_gui provides an interface for all wifi related stuff you'll need, run it with -qt to start (q)uitely in (t)ray`
 ```
 trizen -S wpa_supplicant_gui
 ```
