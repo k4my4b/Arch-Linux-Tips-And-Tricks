@@ -17,6 +17,26 @@ linux-zen runs scheduler at 1000hz, it's a bit more aggressive and better suited
 trizen -S kwin-decoration-sierra-breeze-enhanced-git --noedit
 ```
 
+## Latte-dock
+
+```
+trizen -S latte-dock-git --noedit
+```
+
+## ttf-roboto
+
+```
+sudo pacman -S --needed ttf-roboto
+```
+
+## To install
+
+> sudo pacman -S --needed
+
+```
+
+```
+
 ## command-not-found (there are better options)
 
 ```
