@@ -1,3 +1,13 @@
+```
+Clocksources:
+	tsc (timestamp counter register)
+	hpet
+	acpi_pm
+
+Kernel param: 
+	clocksource=hpet (confirm though dmesg and /sys/devices/system/clocksource/*/current_clocksource)
+```
+
 ## kernels that failed the test of desktop responsive vs high workload
 
 ```
