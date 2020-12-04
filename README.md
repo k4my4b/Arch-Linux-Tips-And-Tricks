@@ -1,13 +1,3 @@
-```
-Clocksources:
-	tsc (timestamp counter register)
-	hpet
-	acpi_pm
-
-Kernel param: 
-	clocksource=hpet (confirm though dmesg and /sys/devices/system/clocksource/*/current_clocksource)
-```
-
 ## kernels that failed the test of desktop responsive vs high workload
 
 ```
@@ -20,6 +10,26 @@ linux-xanmod
 
 linux remains quite balanced and should suffice for most people \
 linux-zen runs scheduler at 1000hz, it's a bit more aggressive and better suited for realtime applications.
+
+## Kernel Parameters
+
+> HPET (High Precision Event Timer). Certain early implmentaitons of the HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. intel 7th gen+ or an AMD Ryzen you should be using this. Bare in mind this will reduce the overall system performance but will result greater consistency i.e. (reduced fps but more stable frametimes). [Check out the kernel parameters docs here](https://www.kernel.org/doc/html/v4.12/admin-guide/kernel-parameters.html?highlight=clocksource)
+
+```
+clocksource=hpet # tsc (timestamp counter register)
+                 # hpet
+                 # acpi_pm
+
+cat /sys/devices/system/clocksource/*/current_clocksource
+```
+
+> CPU Frequency Scaling Driver, the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to acpi driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver but keep boost clocks. [Read about intel_pstate here](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/intel_pstate.html#passive-mode).
+
+```
+intel_pstate=<passive> or <disable>
+
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver 
+```
 
 ## Siera Breeze Enhanced <sup>[AUR](https://aur.archlinux.org/packages/kwin-decoration-sierra-breeze-enhanced-git/)</sup>
 
