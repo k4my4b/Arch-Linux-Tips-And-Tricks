@@ -36,15 +36,7 @@ trizen -S latte-dock-git --noedit
 ## ttf-roboto
 
 ```
-sudo pacman -S --needed ttf-roboto
-```
-
-## To install
-
-> sudo pacman -S --needed
-
-```
-
+sudo pacman -S --needed ttf-roboto ttf-roboto-mono
 ```
 
 ## command-not-found (there are better options)
