@@ -88,23 +88,11 @@ trizen -S kwin-lowlatency
 - kwinrc (~/.config/kwinrc) **settings for my 240hz dispaly**
   ```
   [Compositing]
-  AnimationCurve=2
-  Backend=OpenGL
-  Enabled=true
-  GLCore=false
-  GLPreferBufferSwap=n
-  GLTextureFilter=2
-  HiddenPreviews=5
   LatencyControl=0
-  MaxFPS=240
-  MaxLatency=4
+  MaxLatency=0
   MinLatency=0
   OpenGLIsUnsafe=false
-  RefreshRate=240
   UnredirectFullscreen=false
-  VSyncMechanism=1
-  WindowsBlockCompositing=true
-  XRenderSmoothScale=true
   ```
 
 ## Install Nvidia drivers
