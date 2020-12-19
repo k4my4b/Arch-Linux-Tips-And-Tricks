@@ -4,106 +4,106 @@
 > kernel parameters are usually passed in via the [bootloader](https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader) e.g. [grub](https://wiki.archlinux.org/index.php/GRUB). If you are using [dracut](https://wiki.archlinux.org/index.php/Dracut) kernel parameters can be built into the initramfs if you wish. </br> 
 > To view the current kernel parameters run ``` cat /proc/cmdline ```
 
-- [clocksource](https://www.kernel.org/doc/html/v4.12/admin-guide/kernel-parameters.html?highlight=clocksource) (used to set the default clock source.) **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. intel 7th gen+ or an AMD Ryzen you should be using this. Bare in mind this will reduce the overall system performance but will result in greater consistency i.e. (reduced fps but more stable frametimes).
+- **[clocksource](https://www.kernel.org/doc/html/v4.12/admin-guide/kernel-parameters.html?highlight=clocksource)** (used to set the default clock source.) **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. intel 7th gen+ or an AMD Ryzen you should be using this. Bare in mind this will reduce the overall system performance but will result in greater consistency i.e. (reduced fps but more stable frametimes).
 
   ```bash
-    clocksource=hpet # tsc (timestamp counter register)
-                     # hpet
-                     # acpi_pm
+  clocksource=hpet # tsc (timestamp counter register)
+                   # hpet
+                   # acpi_pm
 
-    # verify
-    cat /sys/devices/system/clocksource/*/current_clocksource
+  # verify
+  cat /sys/devices/system/clocksource/*/current_clocksource
   ```
 
-- [intel_pstate](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/intel_pstate.html#passive-mode) (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
+- **[intel_pstate](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/intel_pstate.html#passive-mode)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
 
   ```bash
-    intel_pstate=<passive or disable>
+  intel_pstate=<passive or disable>
 
-    # verify
-    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
+  # verify
+  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
   ```
 
 ## Pacman/package management related stuff.
 
-- searching, installing, unstalling, updating and upgrading with pacman
+- **searching, installing, unstalling, updating and upgrading with pacman**
   
   ```bash
-    # To install
-    sudo pacman -S
+  # To install
+  sudo pacman -S
 
-    # To uninstall
-    sudo pacman -Runcs # (-d skip dependency version checks (-dd to skip all checks))
+  # To uninstall
+  sudo pacman -Runcs # (-d skip dependency version checks (-dd to skip all checks))
 
-    # To refresh/update package database
-    sudo pacman -Sy
+  # To refresh/update package database
+  sudo pacman -Sy
 
-    # To upgrade
-    sudo pacman -Syu   # (-yy to force a refresh even if up to date)
-                       # (-uu enables downgrades)
-    # To search
-    pacman -Ss         # (-q show less information for query and search)
+  # To upgrade
+  sudo pacman -Syu   # (-yy to force a refresh even if up to date)
+                     # (-uu enables downgrades)
+  # To search
+  pacman -Ss         # (-q show less information for query and search)
 
-    # To view specific package info
-    pacman -Si         # (-ii for extended information)
+  # To view specific package info
+  pacman -Si         # (-ii for extended information)
 
-    # To clean up uneeded/orphaned packges
-    pacman -Runcs $(pacman -Qdtq)
+  # To clean up uneeded/orphaned packges
+  pacman -Runcs $(pacman -Qdtq)
   ```
 
-- pacman output colorization
+- **pacman output colorization**
 
   ```bash
-    #Color
+  #Color
 
-    sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
+  sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
   ```
 
-- pacman easter egg (changes progress bar to a Pac-Man)
+- **pacman easter egg** (changes progress bar to a Pac-Man)
 
   ```bash
-    #ILoveCandy
+  #ILoveCandy
 
-    sudo sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/g' /etc/pacman.conf
+  sudo sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/g' /etc/pacman.conf
   ```
 
-- pacman verbose package change
+- **pacman verbose package change**
   
   ```bash
-    #VerbosePkgLists
+  #VerbosePkgLists
 
-    sudo sed -i 's/#VerbosePkgLists/VerbosePkgLists\n/g' /etc/pacman.conf
+  sudo sed -i 's/#VerbosePkgLists/VerbosePkgLists\n/g' /etc/pacman.conf
   ```
 
-- updating mirrors
+- **updating mirrors**
 
   ```bash
-    # install reflector first if not installed already
-    sudo pacman -S --needed reflector
+  # install reflector first if not installed already
+  sudo pacman -S --needed reflector
 
-    # use relfector --usage to determine the optimal flags for you
-    sudo reflector --country <your country code e.g. gb> --ipv4 --protocol "http,https" --sort score --save /etc/pacman.d/mirrorlist
+  # use relfector --usage to determine the optimal flags for you
+  sudo reflector --country <your country code e.g. gb> --ipv4 --protocol "http,https" --sort score --save /etc/pacman.d/mirrorlist
   ```
 
-- adding a new key
+- **adding a new key**
   
   ```bash
-    sudo pacman-key --recv-keys <key-id>
-    pacman-key --finger <key-id> # shoudln't require root 
-    sudo pacman-key --lsign-key  <key-id>
-    sudo pacman-key --refresh-keys
+  sudo pacman-key --recv-keys <key-id>
+  pacman-key --finger <key-id> # shoudln't require root 
+  sudo pacman-key --lsign-key  <key-id>
+  sudo pacman-key --refresh-keys
 
-    # you can use the --keyserver flag to specify a keyserver
+  # you can use the --keyserver flag to specify a keyserver
   ```
 
-- chaotic-aur: add user mainted repo of pre-built aur packages (some packages).
+- **chaotic-aur** (user maintained repo of pre-built AUR packages).
   
   ```bash
-    trizen -S --noedit chaotic-mirrorlist chaotic-keyring
+  trizen -S --noedit chaotic-mirrorlist chaotic-keyring
 
-    # you will find the installed files under 
-    # /etc/pacman.d/chaotic-mirrorlist
-    # /usr/share/pacman/keyrings/chaotic*
+  # you will find the installed files under 
+  # /etc/pacman.d/chaotic-mirrorlist
+  # /usr/share/pacman/keyrings/chaotic*
   ```
 
 ## Useful packages to install
@@ -113,7 +113,7 @@
   ```bash
   trizen -S --noedit kwin-decoration-sierra-breeze-enhanced-git
 
-  # compiled binary available in chaotic-aur repo
+  # pre-built package available in chaotic-aur repo
   ```
 
 - **Latte-dock** <sup>[AUR](https://aur.archlinux.org/packages/latte-dock-git/)</sup>
@@ -121,7 +121,7 @@
   ```bash
   trizen -S --noedit latte-dock-git 
 
-  # compiled binary available in chaotic-aur repo
+  # pre-built package available in chaotic-aur repo
   ```
 
 - **ttf-roboto** (it's an awesome font that is a dependecy of multiple mainstream packages)
@@ -158,7 +158,7 @@
   # enable the systemd daemon
   sudo systemctl enable --now ananicy.service
 
-  # compiled binary available in chaotic-aur repo
+  # pre-built package available in chaotic-aur repo
   ```
 
 - **kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)
@@ -179,12 +179,20 @@
   UnredirectFullscreen=false
   -------------------------------------------------------
 
-  # compiled binary available in chaotic-aur repo
+  # pre-built package available in chaotic-aur repo
+  ```
+
+- **update-grub** <sup>[AUR](https://aur.archlinux.org/packages/update-grub/)</sup> (Simple wrapper around grub-mkconfig)
+
+  ```bash
+  trizen -S --noedit update-grub
+
+  # pre-built package available in chaotic-aur repo
   ```
 
 ## Drivers (Nvidia etc...)
 
-- Nvidia drivers
+- **Nvidia drivers**
   
   ``` bash
   # install the latest dkms module
@@ -210,18 +218,18 @@
   GRUB_CMDLINE_LINUX_DEFAULT=" ... nvidia-drm.modeset=1"
 
   # now rebuild the initramfs image and update grub
-  sudo mkinitcpio -P && sudo grub-mkconfig -o /boot/grub/grub.cfg 
+  sudo mkinitcpio -P && sudo update-grub 
   ```
   
 ## Networking
 
-- Enable (basic) networking via systemd
+- **Enable (basic) networking via systemd**
 
   ```bash
   # this will automatically manage interfaces
   sudo systemctl enable --now systemd-networkd
 
-  # systemd equivilant to dhclient
+  # systemd equivalent to dhclient
   sudo systemctl enable --now systemd-resolved
 
   # to configure a new interface for networkd
@@ -242,4 +250,52 @@
   -------------------------------------------------------
 
   # TODO add instructions for Wi-Fi
+  ```
+
+## Boot/Splash screen
+
+- **[Plymouth](https://wiki.archlinux.org/index.php/plymouth)** (Plymouth is an independant module desgined to be called during the
+boot process to provide a graphical boot screen.)
+
+  ```bash
+  trizen -S --noedit plymouth-git
+
+  # add plymouth hook to mkinitcpio.conf
+  # open /etc/mkinitcpio.conf with the editor
+  # of your choice and make the following changes
+  # *NOTE* It must be added after base and udev
+  HOOKS=(base udev plymouth ...)
+
+  # replace the display managers systemd unit with
+  # the plymouth equivalent
+  # but first disable the DM unit
+  sudo systemctl disable <your DM e.g. sddm>.service
+
+  # next enable the plymouth DM unit
+  sudo systemctl enable <your DM e.g. sddm>-plymouth.service
+
+  # open /etc/plymouth/plymouthd.conf with the
+  # editor of your choice and make the following
+  # adjustments
+  -------------------------------------------------------
+  [Daemon]
+  Theme=bgrt
+  ShowDelay=0
+  DeviceTimeout=8
+  -------------------------------------------------------
+
+  # to set the change the plymouth theme
+  # run the following command 
+  sudo plymouth-set-default-theme <theme-name> # (see --list for available themes)
+
+  # you must also make sure the graphics driver is included
+  # in the initramfs, refer to Drivers section
+  # for doing this nvidia for example. 
+  # once everything is done go ahead and rebuild the 
+  # initramfs and update grub
+  # *NOTE* everytime you make a change to plymouth
+  # e.g. change the theme initramfs needs to be rebuilt
+  sudo mkinitcpio -P && sudo update-grub 
+
+  # pre-built package available in chaotic-aur repo
   ```
