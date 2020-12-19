@@ -108,7 +108,7 @@
 
 ## Useful packages to install
 
-- ### **Siera Breeze Enhanced** <sup>[AUR](https://aur.archlinux.org/packages/kwin-decoration-sierra-breeze-enhanced-git/)</sup>
+- **Siera Breeze Enhanced** <sup>[AUR](https://aur.archlinux.org/packages/kwin-decoration-sierra-breeze-enhanced-git/)</sup>
 
   ```bash
   trizen -S --noedit kwin-decoration-sierra-breeze-enhanced-git
@@ -116,7 +116,7 @@
   # compiled binary available in chaotic-aur repo
   ```
 
-- ### **Latte-dock** <sup>[AUR](https://aur.archlinux.org/packages/latte-dock-git/)</sup>
+- **Latte-dock** <sup>[AUR](https://aur.archlinux.org/packages/latte-dock-git/)</sup>
 
   ```bash
   trizen -S --noedit latte-dock-git 
@@ -124,13 +124,13 @@
   # compiled binary available in chaotic-aur repo
   ```
 
-- ### **ttf-roboto** (it's an awesome font that is a dependecy of multiple mainstream packages)
+- **ttf-roboto** (it's an awesome font that is a dependecy of multiple mainstream packages)
 
   ```bash
   sudo pacman -S --needed ttf-roboto ttf-roboto-mono
   ```
 
-- ### **pkgfile** (command-not-found).
+- **pkgfile** (command-not-found).
 
   ```bash
   sudo pacman -S --needed pkgfile
@@ -141,7 +141,7 @@
   echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
   ```
 
-- ### **irqbalance** (spread out interrupts across all cores)
+- **irqbalance** (spread out interrupts across all cores)
 
   ```bash
   sudo pacman -S --needed irqbalance
@@ -150,7 +150,7 @@
   sudo systemctl enable --now irqbalance.service
   ```
 
-- ### **Ananicy** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup> (community driven automatic process cpu/io priority assignment)
+- **Ananicy** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup> (community driven automatic process cpu/io priority assignment)
 
   ```bash
   trizen -S --noedit ananicy-git 
@@ -161,7 +161,7 @@
   # compiled binary available in chaotic-aur repo
   ```
 
-- ### **kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)
+- **kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)
 
   ```bash
   trizen -S --noedit kwin-lowlatency
@@ -212,7 +212,7 @@
   # now rebuild the initramfs image and update grub
   sudo mkinitcpio -P && sudo grub-mkconfig -o /boot/grub/grub.cfg 
   ```
-
+  
 ## Networking
 
 - Enable (basic) networking via systemd
