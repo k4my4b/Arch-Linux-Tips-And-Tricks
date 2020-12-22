@@ -104,6 +104,13 @@
   # you will find the installed files under 
   # /etc/pacman.d/chaotic-mirrorlist
   # /usr/share/pacman/keyrings/chaotic*
+  # you must now add the repo to pacman.conf
+  # as follow 
+  
+  echo -e "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
+
+  # Refresh
+  sudo pacman -Syyu 
   ```
 
 ## Useful packages to install
