@@ -2,7 +2,7 @@
 
 ## Kernel Parameters
 > kernel parameters are usually passed in via the [bootloader](https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader) e.g. [grub](https://wiki.archlinux.org/index.php/GRUB). If you are using [dracut](https://wiki.archlinux.org/index.php/Dracut) kernel parameters can be built into the initramfs if you wish. </br> 
-> To view the current kernel parameters run ``` cat /proc/cmdline ```
+> To view the current kernel parameters run `cat /proc/cmdline`
 
 - **[clocksource](https://www.kernel.org/doc/html/v4.12/admin-guide/kernel-parameters.html?highlight=clocksource)** (used to set the default clock source.) **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. intel 7th gen+ or an AMD Ryzen you should be using this. Bare in mind this will reduce the overall system performance but will result in greater consistency i.e. (reduced fps but more stable frametimes).
 
@@ -114,6 +114,20 @@
   ```
 
 ## Useful packages to install
+
+* **[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)
+  ```bash
+  # first check your entropy count
+  cat /proc/sys/kernel/random/entropy_avail
+
+  sudo pacman -S rng-tools opensc
+
+  # enable service
+  sudo systemctl enable --now rngd.service
+
+  # verify your entropy count is higher
+  cat /proc/sys/kernel/random/entropy_avail
+  ```
 
 - **Siera Breeze Enhanced** <sup>[AUR](https://aur.archlinux.org/packages/kwin-decoration-sierra-breeze-enhanced-git/)</sup>
 
