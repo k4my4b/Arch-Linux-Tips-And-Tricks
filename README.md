@@ -115,7 +115,8 @@
 
 ## Useful packages to install
 
-* **[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)
+- **[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)
+  
   ```bash
   # first check your entropy count
   cat /proc/sys/kernel/random/entropy_avail
@@ -162,7 +163,7 @@
   echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
   ```
 
-- **irqbalance** (spread out interrupts across all cores)
+- **[irqbalance](https://wiki.archlinux.org/index.php/improving_performance#irqbalance)** (spread out interrupts across all cores)
 
   ```bash
   sudo pacman -S --needed irqbalance
@@ -171,7 +172,7 @@
   sudo systemctl enable --now irqbalance.service
   ```
 
-- **Ananicy** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup> (community driven automatic process cpu/io priority assignment)
+- **[Ananicy](https://wiki.archlinux.org/index.php/improving_performance#Adjusting_priorities_of_processes)** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup> (community driven automatic process cpu/io priority assignment)
 
   ```bash
   trizen -S --noedit ananicy-git 
