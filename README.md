@@ -1,29 +1,5 @@
 # A collection of handy-dandy tips, tricks and How-to(s)
 
-## Kernel Parameters
-> kernel parameters are usually passed in via the [bootloader](https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader) e.g. [grub](https://wiki.archlinux.org/index.php/GRUB). If you are using [dracut](https://wiki.archlinux.org/index.php/Dracut) kernel parameters can be built into the initramfs if you wish. </br> 
-> To view the current kernel parameters run `cat /proc/cmdline`
-
-- **[clocksource](https://www.kernel.org/doc/html/v4.12/admin-guide/kernel-parameters.html?highlight=clocksource)** (used to set the default clock source.) **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. intel 7th gen+ or an AMD Ryzen you should be using this. Bare in mind this will reduce the overall system performance but will result in greater consistency i.e. (reduced fps but more stable frametimes).
-
-  ```bash
-  clocksource=hpet # tsc (timestamp counter register)
-                   # hpet
-                   # acpi_pm
-
-  # verify
-  cat /sys/devices/system/clocksource/*/current_clocksource
-  ```
-
-- **[intel_pstate](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/intel_pstate.html#passive-mode)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
-
-  ```bash
-  intel_pstate=<passive or disable>
-
-  # verify
-  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
-  ```
-
 ## Pacman/package management related stuff.
 
 - **searching, installing, unstalling, updating and upgrading with pacman**
@@ -320,4 +296,29 @@ boot process to provide a graphical boot screen.)
   sudo mkinitcpio -P && sudo update-grub 
 
   # pre-built package available in chaotic-aur repo
+  ```
+
+## Kernel Parameters
+
+> kernel parameters are usually passed in via the [bootloader](https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader) e.g. [grub](https://wiki.archlinux.org/index.php/GRUB). If you are using [dracut](https://wiki.archlinux.org/index.php/Dracut) kernel parameters can be built into the initramfs if you wish. </br>
+> To view the current kernel parameters run `cat /proc/cmdline`
+
+- **[clocksource](https://www.kernel.org/doc/html/v4.12/admin-guide/kernel-parameters.html?highlight=clocksource)** (used to set the default clock source.) **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. intel 7th gen+ or an AMD Ryzen you should be using this. Bare in mind this will reduce the overall system performance but will result in greater consistency i.e. (reduced fps but more stable frametimes).
+
+  ```bash
+  clocksource=hpet # tsc (timestamp counter register)
+                   # hpet
+                   # acpi_pm
+
+  # verify
+  cat /sys/devices/system/clocksource/*/current_clocksource
+  ```
+
+- **[intel_pstate](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/intel_pstate.html#passive-mode)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
+
+  ```bash
+  intel_pstate=<passive or disable>
+
+  # verify
+  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
   ```
