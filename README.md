@@ -227,8 +227,15 @@
   # this will automatically manage interfaces
   sudo systemctl enable --now systemd-networkd
 
-  # systemd equivalent to dhclient
+  # systemd equivalent for dhclient
   sudo systemctl enable --now systemd-resolved
+
+  # systemd equivalent for resolvconf
+  sudo pacman -S --needed systemd-resolvconf
+
+  # link systemd-resolvd controlled resolv.conf to
+  # /etc/resolv.conf
+  sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
   # to configure a new interface for networkd
   # we need to create a config file for it
