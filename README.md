@@ -27,6 +27,14 @@
   pacman -Runcs $(pacman -Qdtq)
   ```
 
+- **pacman parallel downloading**
+  
+  ```bash
+  #ParallelDownloads = 5
+
+  sudo sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
+  ```
+
 - **pacman output colorization**
 
   ```bash
