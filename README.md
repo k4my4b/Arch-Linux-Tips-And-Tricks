@@ -72,10 +72,18 @@
   # you can use the --keyserver flag to specify a keyserver
   ```
 
-- **chaotic-aur** (user maintained repo of pre-built AUR packages).
+- **[chaotic-aur](https://aur.chaotic.cx/)** (user maintained repo of pre-built popular AUR packages).
   
   ```bash
-  trizen -S --noedit chaotic-mirrorlist chaotic-keyring
+  # add chaotic-aur keys 
+  sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+
+  # sign said keys 
+  sudo pacman-key --lsign-key 3056513887B78AEB
+  
+  # install the keyring and chaotic mirrorlist packages so 
+  # they can be updated in the future 
+  sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-'{keyring,mirrorlist}'.pkg.tar.zst'
 
   # you will find the installed files under 
   # /etc/pacman.d/chaotic-mirrorlist
@@ -83,10 +91,10 @@
   # you must now add the repo to pacman.conf
   # as follow 
   
-  echo -e "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
+  echo -e "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
 
   # Refresh
-  sudo pacman -Syyu 
+  sudo pacman -Syy 
   ```
 
 ## Useful packages to install
