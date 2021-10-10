@@ -322,7 +322,7 @@ boot process to provide a graphical boot screen.)
   # pre-built package available in chaotic-aur repo
   ```
 
-## Kernel Parameters
+## [Kernel Parameters](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)
 
 > kernel parameters are usually passed in via the [bootloader](https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader) e.g. [grub](https://wiki.archlinux.org/index.php/GRUB). If you are using [dracut](https://wiki.archlinux.org/index.php/Dracut) kernel parameters can be built into the initramfs if you wish. </br>
 > To view the current kernel parameters run `cat /proc/cmdline`
