@@ -3,32 +3,51 @@
 ## Pacman/package management related stuff.
 
 - **searching, installing, unstalling, updating and upgrading with pacman**
-  
+
   ```bash
   # To install
   sudo pacman -S
 
   # To uninstall
-  sudo pacman -Runcs # (-d skip dependency version checks (-dd to skip all checks))
+  # NOTE (-d skip dependency version checks (-dd to skip all checks))
+  sudo pacman -Runcs
 
   # To refresh/update package database
   sudo pacman -Sy
 
   # To upgrade
-  sudo pacman -Syu   # (-yy to force a refresh even if up to date)
-                     # (-uu enables downgrades)
-  # To search
-  pacman -Ss         # (-q show less information for query and search)
+  # NOTE (-yy to force a refresh even if up to date)
+  # NOTE (-uu enables downgrades)
+  sudo pacman -Syu
 
-  # To view specific package info
-  pacman -Si         # (-ii for extended information)
+  # To search remotely
+  # NOTE (-q show less information for query and search)
+  pacman -Ss
+
+  # To search locally
+  # NOTE (-q show less information for query and search)
+  pacman -Qs
+
+  # To view remote package info
+  # NOTE (-ii for extended information)
+  pacman -Si
+
+  # To view installed package info
+  # NOTE (-ii for extended information)
+  pacman -Qi
+
+  # To view packages installed by you
+  pacman -Qe
+
+  # To view packages installed as dependencies
+  pacman -Qd
 
   # To clean up uneeded/orphaned packges
-  pacman -Runcs $(pacman -Qdtq)
+  sudo pacman -Runcs $(pacman -Qdtq)
   ```
 
 - **pacman parallel downloading**
-  
+
   ```bash
   #ParallelDownloads = 5
 
@@ -52,7 +71,7 @@
   ```
 
 - **pacman verbose package change**
-  
+
   ```bash
   #VerbosePkgLists
 
@@ -70,10 +89,10 @@
   ```
 
 - **adding a new key**
-  
+
   ```bash
   sudo pacman-key --recv-keys <key-id>
-  pacman-key --finger <key-id> # shoudln't require root 
+  pacman-key --finger <key-id> # shoudln't require root
   sudo pacman-key --lsign-key  <key-id>
   sudo pacman-key --refresh-keys
 
@@ -81,34 +100,34 @@
   ```
 
 - **[chaotic-aur](https://aur.chaotic.cx/)** (user maintained repo of pre-built popular AUR packages).
-  
+
   ```bash
-  # add chaotic-aur keys 
+  # add chaotic-aur keys
   sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
 
-  # sign said keys 
+  # sign said keys
   sudo pacman-key --lsign-key 3056513887B78AEB
-  
-  # install the keyring and chaotic mirrorlist packages so 
-  # they can be updated in the future 
+
+  # install the keyring and chaotic mirrorlist packages so
+  # they can be updated in the future
   sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-'{keyring,mirrorlist}'.pkg.tar.zst'
 
-  # you will find the installed files under 
+  # you will find the installed files under
   # /etc/pacman.d/chaotic-mirrorlist
   # /usr/share/pacman/keyrings/chaotic*
   # you must now add the repo to pacman.conf
-  # as follow 
-  
+  # as follow
+
   echo -e "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
 
   # Refresh
-  sudo pacman -Syy 
+  sudo pacman -Syy
   ```
 
 ## Useful packages to install
 
 - **[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)
-  
+
   ```bash
   # first check your entropy count
   cat /proc/sys/kernel/random/entropy_avail
@@ -133,7 +152,7 @@
 - **Latte-dock** <sup>[AUR](https://aur.archlinux.org/packages/latte-dock-git/)</sup>
 
   ```bash
-  trizen -S --noedit latte-dock-git 
+  trizen -S --noedit latte-dock-git
 
   # pre-built package available in chaotic-aur repo
   ```
@@ -149,7 +168,7 @@
   ```bash
   sudo pacman -S --needed pkgfile
 
-  sudo pkgfile -u # as pkgfile maintains a seperate database 
+  sudo pkgfile -u # as pkgfile maintains a seperate database
                   # it needs to be kept up-to-date
 
   echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
@@ -167,7 +186,7 @@
 - **[Ananicy](https://wiki.archlinux.org/index.php/improving_performance#Adjusting_priorities_of_processes)** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup> (community driven automatic process cpu/io priority assignment)
 
   ```bash
-  trizen -S --noedit ananicy-git 
+  trizen -S --noedit ananicy-git
 
   # enable the systemd daemon
   sudo systemctl enable --now ananicy.service
@@ -176,6 +195,7 @@
   ```
 
 - **kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)
+
   > <span style="color:red">In the beginning of 2021, <a href="https://invent.kde.org/plasma/kwin/-/merge_requests/507">a massive change set</a> has been merged to KWin which pretty much defeats the point of this project.</span>.
 
   ```bash
@@ -208,14 +228,14 @@
 ## Drivers (Nvidia etc...)
 
 - **Nvidia drivers**
-  
-  ``` bash
+
+  ```bash
   # install the latest dkms module
   sudo pacman -S --needed nvidia-dkms
 
   # enable systemd nvidia services
   # DO NOT ISSUE WITH --now FLAG
-  sudo systemctl enable nvidia-hibernate 
+  sudo systemctl enable nvidia-hibernate
   sudo systemctl enable nvidia-resume
   sudo systemctl enable nvidia-suspend
 
@@ -228,14 +248,14 @@
   # enable nvidia-drm by passing kernel parameter
   # for example in the case of grub open the grub
   # config file located at /etc/default/grub
-  # and append nvidia-drm.modeset=1 to 
+  # and append nvidia-drm.modeset=1 to
   # GRUB_CMDLINE_LINUX_DEFAULT like so
   GRUB_CMDLINE_LINUX_DEFAULT=" ... nvidia-drm.modeset=1"
 
   # now rebuild the initramfs image and update grub
-  sudo mkinitcpio -P && sudo update-grub 
+  sudo mkinitcpio -P && sudo update-grub
   ```
-  
+
 ## Networking
 
 - **Enable (basic) networking via systemd**
@@ -256,9 +276,9 @@
 
   # to configure a new interface for networkd
   # we need to create a config file for it
-  # under /etc/systemd/network/ as follow: 
+  # under /etc/systemd/network/ as follow:
   sudo vim /etc/systemd/network/20-wired.network
-  
+
   # add the following to it (make any neccessary changes):
   -------------------------------------------------------
   [Match]
@@ -277,7 +297,7 @@
 ## Boot/Splash screen
 
 - **[Plymouth](https://wiki.archlinux.org/index.php/plymouth)** (Plymouth is an independant module desgined to be called during the
-boot process to provide a graphical boot screen.)
+  boot process to provide a graphical boot screen.)
 
   ```bash
   trizen -S --noedit plymouth-git
@@ -307,17 +327,17 @@ boot process to provide a graphical boot screen.)
   -------------------------------------------------------
 
   # to set the change the plymouth theme
-  # run the following command 
+  # run the following command
   sudo plymouth-set-default-theme <theme-name> # (see --list for available themes)
 
   # you must also make sure the graphics driver is included
   # in the initramfs, refer to Drivers section
-  # for doing this nvidia for example. 
-  # once everything is done go ahead and rebuild the 
+  # for doing this nvidia for example.
+  # once everything is done go ahead and rebuild the
   # initramfs and update grub
   # *NOTE* everytime you make a change to plymouth
   # e.g. change the theme initramfs needs to be rebuilt
-  sudo mkinitcpio -P && sudo update-grub 
+  sudo mkinitcpio -P && sudo update-grub
 
   # pre-built package available in chaotic-aur repo
   ```
