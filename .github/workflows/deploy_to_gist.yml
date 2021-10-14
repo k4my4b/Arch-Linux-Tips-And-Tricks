@@ -1,0 +1,16 @@
+name: Deploy to Gist
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: exuanbo/actions-deploy-gist@v1.0.4
+        with:
+          token: ${{ secrets.TOKEN }}
+          gist_id: 827426cab7f7424c408aed1497ba5517
+          gist_file_name: Arch-Linux-Tips-And-Tricks.md
+          file_path: README.md
