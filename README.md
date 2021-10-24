@@ -194,7 +194,7 @@
   # pre-built package available in chaotic-aur repo
   ```
 
-- **kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)
+- ~~**kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)~~
 
   > <span style="color:red">In the beginning of 2021, <a href="https://invent.kde.org/plasma/kwin/-/merge_requests/507">a massive change set</a> has been merged to KWin which pretty much defeats the point of this project.</span>.
 
