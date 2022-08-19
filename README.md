@@ -193,10 +193,10 @@
   sudo systemctl enable --now irqbalance.service
   ```
 
-- **[Ananicy](https://wiki.archlinux.org/index.php/improving_performance#Adjusting_priorities_of_processes)** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-git/)</sup> (community driven automatic process cpu/io priority assignment)
+- **[Ananicy](https://wiki.archlinux.org/index.php/improving_performance#Adjusting_priorities_of_processes)** <sup>[AUR](https://aur.archlinux.org/packages/ananicy-cpp/)</sup> (community driven automatic process cpu/io priority assignment)
 
   ```bash
-  trizen -S --noedit ananicy-git
+  trizen -S --noedit ananicy-cpp
 
   # enable the systemd daemon
   sudo systemctl enable --now ananicy.service
