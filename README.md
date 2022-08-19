@@ -54,7 +54,7 @@
   ```bash
   #ParallelDownloads = 5
 
-  sudo sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
+  sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
   ```
 
 - **pacman output colorization**
@@ -62,7 +62,7 @@
   ```bash
   #Color
 
-  sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
+  sudo sed -i 's/^#Color/Color/g' /etc/pacman.conf
   ```
 
 - **pacman easter egg** (changes progress bar to a Pac-Man)
@@ -78,7 +78,7 @@
   ```bash
   #VerbosePkgLists
 
-  sudo sed -i 's/#VerbosePkgLists/VerbosePkgLists\n/g' /etc/pacman.conf
+  sudo sed -i 's/^#VerbosePkgLists/VerbosePkgLists\n/g' /etc/pacman.conf
   ```
 
 - **updating mirrors**
