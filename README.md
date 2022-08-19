@@ -81,13 +81,14 @@
   sudo sed -i 's/^#VerbosePkgLists/VerbosePkgLists\n/g' /etc/pacman.conf
   ```
 
-- **(automatically)updating mirrors**
+- **(automatically) updating mirrors**
 
   ```bash
   # install reflector first if not installed already
   sudo pacman -S --needed reflector
 
-  # delete everything from the reflector service config file and replace them with the following flags
+  # delete everything from the reflector service config file 
+  # and replace them with only the following flags
   # /etc/xdg/reflector/reflector.conf
   --protocol https
   --sort score
@@ -135,8 +136,8 @@
 
 ## Useful packages to install
 
-- **[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)
-
+- ~~**[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)~~
+  > [rng-tools is not needed anymore since Kernel 5.6 because /dev/random does not block anymore.](https://github.com/torvalds/linux/commit/30c08efec8884fb106b8e57094baa51bb4c44e32)
   ```bash
   # first check your entropy count
   cat /proc/sys/kernel/random/entropy_avail
@@ -205,7 +206,7 @@
 
 - ~~**kwin-lowlatency** <sup>[AUR](https://aur.archlinux.org/packages/kwin-lowlatency/)</sup> (fork of kwin with major performance improvements)~~
 
-  > <span style="color:red">In the beginning of 2021, <a href="https://invent.kde.org/plasma/kwin/-/merge_requests/507">a massive change set</a> has been merged to KWin which pretty much defeats the point of this project.</span>.
+  > In the beginning of 2021, [a massive change set](https://invent.kde.org/plasma/kwin/-/merge_requests/507) has been merged to KWin which pretty much defeats the point of this project.
 
   ```bash
   trizen -S --noedit kwin-lowlatency
