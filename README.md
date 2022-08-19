@@ -27,6 +27,9 @@
   # To search locally
   # NOTE (-q show less information for query and search)
   pacman -Qs
+  
+  # To search for a package that provides X.
+  pacman -F <X>
 
   # To view remote package info
   # NOTE (-ii for extended information)
