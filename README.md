@@ -81,14 +81,20 @@
   sudo sed -i 's/^#VerbosePkgLists/VerbosePkgLists\n/g' /etc/pacman.conf
   ```
 
-- **updating mirrors**
+- **(automatically)updating mirrors**
 
   ```bash
   # install reflector first if not installed already
   sudo pacman -S --needed reflector
 
-  # use relfector --usage to determine the optimal flags for you
-  sudo reflector --country <your country code e.g. gb> --ipv4 --protocol "http,https" --sort score --save /etc/pacman.d/mirrorlist
+  # delete everything from the reflector service config file and replace them with the following flags
+  # /etc/xdg/reflector/reflector.conf
+  --protocol https
+  --sort score
+  --save /etc/pacman.d/mirrorlist
+
+  # enable the systemd timer to automatically update the mirrors every week
+  sudo systemctl enable --now reflector.timer
   ```
 
 - **adding a new key**
