@@ -138,18 +138,23 @@
 
 - ~~**[rng-tools](https://wiki.archlinux.org/index.php/Rng-tools)** (The rng-tools is a set of utilities related to random number generation in kernel)~~
   > [rng-tools is not needed anymore since Kernel 5.6 because /dev/random does not block anymore.](https://github.com/torvalds/linux/commit/30c08efec8884fb106b8e57094baa51bb4c44e32)
-  ```bash
-  # first check your entropy count
-  cat /proc/sys/kernel/random/entropy_avail
 
-  sudo pacman -S rng-tools opensc
+  <details>
 
-  # enable service
-  sudo systemctl enable --now rngd.service
+    ```bash
+    # first check your entropy count
+    cat /proc/sys/kernel/random/entropy_avail
 
-  # verify your entropy count is higher
-  cat /proc/sys/kernel/random/entropy_avail
-  ```
+    sudo pacman -S rng-tools opensc
+
+    # enable service
+    sudo systemctl enable --now rngd.service
+
+    # verify your entropy count is higher
+    cat /proc/sys/kernel/random/entropy_avail
+    ```
+
+  </details>
 
 - **Siera Breeze Enhanced** <sup>[AUR](https://aur.archlinux.org/packages/kwin-decoration-sierra-breeze-enhanced-git/)</sup>
 
@@ -208,6 +213,8 @@
 
   > In the beginning of 2021, [a massive change set](https://invent.kde.org/plasma/kwin/-/merge_requests/507) has been merged to KWin which pretty much defeats the point of this project.
 
+  <details>
+
   ```bash
   trizen -S --noedit kwin-lowlatency
 
@@ -226,6 +233,8 @@
 
   # pre-built package available in chaotic-aur repo
   ```
+
+  </details>
 
 - **update-grub** <sup>[AUR](https://aur.archlinux.org/packages/update-grub/)</sup> (Simple wrapper around grub-mkconfig)
 
