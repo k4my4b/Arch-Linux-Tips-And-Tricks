@@ -378,6 +378,11 @@
   # verify
   cat /sys/devices/system/clocksource/*/current_clocksource
   ```
+- **[skew_tick](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=weight_single%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20and%20weight_many.-,skew_tick,-%3D%20%20%20%20%20%20%5BKNL%5D%20Offset%20the)** This can help with reducing system latency (on larger systems) at the cost of increased power consumption.
+  ```bash
+  skew_tick=1 # enable
+            0 # disable
+  ```
 
 - **[intel_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
 
