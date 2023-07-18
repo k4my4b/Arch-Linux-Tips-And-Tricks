@@ -378,12 +378,23 @@
   # verify
   cat /sys/devices/system/clocksource/*/current_clocksource
   ```
-  
+
 - **[intel_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
 
   ```bash
-  intel_pstate=no_hwp # disable
-                      # passive
+  intel_pstate=no_hwp #recommended
+               disable
+               passive
+  # verify
+  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
+  ```
+- **[amd_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=support%20is%20present.\)-,amd_pstate,-%3D%20%20%20%20%20%5BX86%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20disable%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Do)** (AMD scaling driver for the supported processors).
+  ```bash
+  amd_pstate=guided #recommended
+             active
+             passive
+             disable
+
   # verify
   cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
   ```
