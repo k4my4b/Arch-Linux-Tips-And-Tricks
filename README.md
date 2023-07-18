@@ -319,7 +319,7 @@
   boot process to provide a graphical boot screen.)
 
   ```bash
-  trizen -S --noedit plymouth-git
+  pacman -S --needed plymouth
 
   # add plymouth hook to mkinitcpio.conf
   # open /etc/mkinitcpio.conf with the editor
@@ -327,22 +327,19 @@
   # *NOTE* It must be added after base and udev
   HOOKS=(base udev plymouth ...)
 
-  # replace the display managers systemd unit with
-  # the plymouth equivalent
-  # but first disable the DM unit
-  sudo systemctl disable <your DM e.g. sddm>.service
-
-  # next enable the plymouth DM unit
-  sudo systemctl enable <your DM e.g. sddm>-plymouth.service
-
-  # open /etc/plymouth/plymouthd.conf with the
-  # editor of your choice and make the following
-  # adjustments
+  # enable boot splash screen by passing the "splash" parameter to
+  # the kernel command line.
+  # e.g. edit grub config (/etc/default/grub) as follows:
   -------------------------------------------------------
-  [Daemon]
-  Theme=bgrt
-  ShowDelay=0
-  DeviceTimeout=8
+  GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash"
+  -------------------------------------------------------
+
+  # If your system boots too fast to show the splash screen
+  # you can forcefully delay the process for N seconds
+  sudo systemctl edit plymouth-quit.service
+  -------------------------------------------------------
+  [Service]
+  ExecStartPre=/usr/bin/sleep 3
   -------------------------------------------------------
 
   # to set the change the plymouth theme
@@ -357,8 +354,6 @@
   # *NOTE* everytime you make a change to plymouth
   # e.g. change the theme initramfs needs to be rebuilt
   sudo mkinitcpio -P && sudo update-grub
-
-  # pre-built package available in chaotic-aur repo
   ```
 
 ## [Kernel Parameters](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)
@@ -384,7 +379,8 @@
             0 # disable
   ```
 
-- **[intel_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
+- **[intel_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver).</br>
+**Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
 
   ```bash
   intel_pstate=no_hwp #recommended
