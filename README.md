@@ -366,8 +366,9 @@
 > kernel parameters are usually passed in via the [bootloader](https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader) e.g. [grub](https://wiki.archlinux.org/index.php/GRUB). If you are using [dracut](https://wiki.archlinux.org/index.php/Dracut) kernel parameters can be built into the initramfs if you wish. </br>
 > To view the current kernel parameters run `cat /proc/cmdline`
 
-- **[clocksource](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (used to set the default clock source.) **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. AMD Ryzen you should, probably, be using HPET. Bare in mind clocksource seems to grealty affect the system throughput and latency and it would require a lot of testing to determine the proper extent of what these changes could mean for you (and their side effects).
-
+- **[clocksource](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (used to set the default clock source.) </br>
+**Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. AMD Ryzen you should, probably, be using HPET. Bare in mind clocksource seems to grealty affect the system throughput and latency and it would require a lot of testing to determine the proper extent of what these changes could mean for you (and their side effects).</br>
+**Note:** [Mesa Fixes A Large Performance Regression For Systems Using HPET](https://www.phoronix.com/news/Mesa-Fixes-HPET-Regression). In order to force enable tsc on AMD systems you must add the following to your kernel cmdline `tsc=reliable`
   ```bash
   clocksource=hpet # tsc (timestamp counter register)
                    # hpet
@@ -377,7 +378,7 @@
   # verify
   cat /sys/devices/system/clocksource/*/current_clocksource
   ```
-
+  
 - **[intel_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver). **Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
 
   ```bash
