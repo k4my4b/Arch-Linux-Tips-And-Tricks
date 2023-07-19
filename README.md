@@ -363,39 +363,76 @@
 
 - **[clocksource](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (used to set the default clock source.) </br>
 **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. AMD Ryzen you should, probably, be using HPET. Bare in mind clocksource seems to grealty affect the system throughput and latency and it would require a lot of testing to determine the proper extent of what these changes could mean for you (and their side effects).</br>
-**Note:** [Mesa Fixes A Large Performance Regression For Systems Using HPET](https://www.phoronix.com/news/Mesa-Fixes-HPET-Regression). In order to force enable tsc on AMD systems you must add the following to your kernel cmdline `tsc=reliable`
+**Note:** [Mesa Fixes A Large Performance Regression For Systems Using HPET](https://www.phoronix.com/news/Mesa-Fixes-HPET-Regression). In order to force enable tsc on AMD systems you must add the following to your kernel cmdline `tsc=reliable`</br>
+**Note:** To verify run `cat /sys/devices/system/clocksource/**/current_clocksource`
   ```bash
   clocksource=hpet # tsc (timestamp counter register)
                    # hpet
                    # acpi_pm
                    # jiffies (DO NOT USE THIS OR ELSE ...)
-
-  # verify
-  cat /sys/devices/system/clocksource/*/current_clocksource
   ```
-- **[skew_tick](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=weight_single%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20and%20weight_many.-,skew_tick,-%3D%20%20%20%20%20%20%5BKNL%5D%20Offset%20the)** This can help with reducing system latency (on larger systems) at the cost of increased power consumption.
+- **[skew_tick](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=weight_single%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20and%20weight_many.-,skew_tick,-%3D%20%20%20%20%20%20%5BKNL%5D%20Offset%20the)** ("Offset the periodic timer tick per cpu to mitigate xtime_lock contentio") </br>
+**Note:** This can help with reducing system latency (on larger systems) at the cost of increased power consumption.
   ```bash
   skew_tick=1 # enable
             0 # disable
   ```
 
 - **[intel_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (intel specific [cpu frequency scaling](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver).</br>
-**Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks.
+**Note:** the pstate driver (at least for now) suffers from poor performance e.g. stuttering. It is best to either disable it completely and fallback to [acpi](https://www.kernel.org/doc/html/v4.12/admin-guide/pm/cpufreq.html?highlight=acpi%20cpufreq) driver if you have customised your cpu frequency e.g. overclocked, or set it to passive to bypass the driver's built-in governor but keep boost clocks. </br>
+**Note:** To verify run `cat /sys/devices/system/cpu/**/cpufreq/scaling_driver`
 
   ```bash
   intel_pstate=no_hwp #recommended
                disable
                passive
-  # verify
-  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
   ```
-- **[amd_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=support%20is%20present.\)-,amd_pstate,-%3D%20%20%20%20%20%5BX86%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20disable%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Do)** (AMD scaling driver for the supported processors).
+- **[amd_pstate](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=support%20is%20present.\)-,amd_pstate,-%3D%20%20%20%20%20%5BX86%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20disable%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Do)** (AMD scaling driver for the supported processors). </br>
+**Note:** To verify run `cat /sys/devices/system/cpu/**/cpufreq/scaling_driver`
   ```bash
   amd_pstate=guided #recommended
              active
              passive
              disable
+  ```
+- **[console_msg_format](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=VisioBraille%20is%20supported.-,console_msg_format,-%3D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5BKNL%5D%20Change%20console)** (Change console messages format)
+  ```bash
+  console_msg_format=syslog #recommended
+                     default
+  ```
+- **[cpufreq.default_governor](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=cpufreq.default_governor%3D)** (set the default cpu governor)
+  ```bash
+  cpufreq.default_governor=schedutil #recommended
+                           powersave
+                           performance
+                           userspace
+                           ondemand
+                           conservative
+  ```
+- **[lsm](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=initialization%20debugging%20output.-,lsm%3D,-lsm1%2C...%2ClsmN%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5BSECURITY)** (Linux Security Modules) </br>
+**Note:** To verify/check the current LSM list run `cat /sys/kernel/security/lsm`
+  ```bash
+  lsm=capability,landlock,lockdown,yama,apparmor,bpf # this will enable apparmor you will also need to install the apprmor package for userspace utils
+  ```
+- **[iommu](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=from%20userspace.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20relaxed-,iommu%3D,-%5BX86%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20off%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20force)** (Set IOMMU mode)
+  ```bash
+  iommu=pt # sets iommu mode to pass-through
+  
+  # see docs for more options
+  ```
+- **[intel_iommu](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=integrity%20auditing%20messages.-,intel_iommu%3D,-%5BDMAR%5D%20Intel%20IOMMU)** (Intel IOMMU driver options) </br>
+**Note:** Intel IOMMU is off by default on most (if not all) Intel platforms
+  ```bash
+  intel_iommu=on
+              off 
+  
+  # see docs for more options
+  ```
+- **[amd_iommu](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=for%20more%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20information.-,amd_iommu%3D,-%5BHW%2CX86%2D64)** (AMD IOMMU driver options) </br>
+**Note:** AMD iommu mode is enabled by default
+  ```bash
+  amd_iommu=off
+            force_enable # Force enable the IOMMU on platforms known to be buggy with IOMMU enabled.
 
-  # verify
-  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
+  # see docs for more options
   ```
