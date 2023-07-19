@@ -189,7 +189,8 @@
   echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
   ```
 
-- **[irqbalance](https://wiki.archlinux.org/index.php/improving_performance#irqbalance)** (spread out interrupts across all cores)
+- **[irqbalance](https://wiki.archlinux.org/index.php/improving_performance#irqbalance)** (spread out interrupts across all cores) </br>
+  > This is may help with increased system throughput but will result in increased system latency and jitter
 
   ```bash
   sudo pacman -S --needed irqbalance
