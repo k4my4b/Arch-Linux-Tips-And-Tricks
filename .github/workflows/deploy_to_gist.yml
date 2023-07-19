@@ -12,6 +12,6 @@ jobs:
         uses: exuanbo/actions-deploy-gist@v1.0.4
         with:
           token: ${{ secrets.TOKEN }}
-          gist_id: 827426cab7f7424c408aed1497ba5517
-          gist_file_name: Arch-Linux-Tips-And-Tricks.md
-          file_path: README.md
+          gist_id: ${{ vars.GIST_ID }}
+          gist_file_name: ${{ vars.GIST_FILE_NAME }}
+          file_path: ${{ vars.FILE_PATH }}
