@@ -164,13 +164,18 @@
   # pre-built package available in chaotic-aur repo
   ```
 
-- **Latte-dock** <sup>[AUR](https://aur.archlinux.org/packages/latte-dock-git/)</sup>
-
+- ~~**Latte-dock** <sup>[AUR](https://aur.archlinux.org/packages/latte-dock-git/)</sup>~~
+  > [The development of latte-dock ceased back in Jul 2022, thus the project is officially dead](https://www.phoronix.com/news/Latte-Dock-Ends).
+  
+  <details>
+  
   ```bash
   trizen -S --noedit latte-dock-git
 
   # pre-built package available in chaotic-aur repo
   ```
+  
+  </details>
 
 - **ttf-roboto** (it's an awesome font that is a dependecy of multiple mainstream packages)
 
