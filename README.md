@@ -177,10 +177,10 @@
   
   </details>
 
-- **ttf-roboto** (it's an awesome font that is a dependecy of multiple mainstream packages)
+- **[nerd-fonts](https://www.nerdfonts.com/)** ("patches developer targeted fonts with a high number of glyphs (icons). Specifically to add a high number of extra glyphs from popular ‘iconic fonts’ such as Font Awesome, Devicons, Octicons, and others.")
 
   ```bash
-  sudo pacman -S --needed ttf-roboto ttf-roboto-mono
+  sudo pacman -S --needed nerd-fonts
   ```
 
 - **pkgfile** (command-not-found).
