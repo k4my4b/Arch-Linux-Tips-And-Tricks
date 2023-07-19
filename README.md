@@ -184,14 +184,21 @@
   ```
 
 - **pkgfile** (command-not-found).
-
+  > In case you run a command that is not available on your system pkgfile hook will suggest a package that contains said command
   ```bash
   sudo pacman -S --needed pkgfile
+  
+  # as pkgfile maintains a seperate database it needs to be kept up-to-date
+  sudo pkgfile -u
+  
+  # enable automatic pkgfile database updating
+  sudo systemctl enable --now pkgfile-update.timer
 
-  sudo pkgfile -u # as pkgfile maintains a seperate database
-                  # it needs to be kept up-to-date
-
+  # for bash
   echo "source /usr/share/doc/pkgfile/command-not-found.bash" >> ~/.bashrc
+
+  # for zsh
+  echo "source /usr/share/doc/pkgfile/command-not-found.zsh" >> ~/.zshrc
   ```
 
 - **[irqbalance](https://wiki.archlinux.org/index.php/improving_performance#irqbalance)** (spread out interrupts across all cores) </br>
