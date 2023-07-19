@@ -364,6 +364,7 @@
 - **[clocksource](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)** (used to set the default clock source.) </br>
 **Note:** Certain early implmentaitons of HPET are buggy and the kernel will want to disable it, but if you are using a modern system e.g. AMD Ryzen you should, probably, be using HPET. Bare in mind clocksource seems to grealty affect the system throughput and latency and it would require a lot of testing to determine the proper extent of what these changes could mean for you (and their side effects).</br>
 **Note:** [Mesa Fixes A Large Performance Regression For Systems Using HPET](https://www.phoronix.com/news/Mesa-Fixes-HPET-Regression). In order to force enable tsc on AMD systems you must add the following to your kernel cmdline `tsc=reliable`</br>
+**Note:** To list available clocksources run `cat /sys/devices/system/clocksource/**/available_clocksource` </br>
 **Note:** To verify run `cat /sys/devices/system/clocksource/**/current_clocksource`
   ```bash
   clocksource=hpet # tsc (timestamp counter register)
