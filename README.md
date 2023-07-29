@@ -426,7 +426,7 @@
                    # acpi_pm
                    # jiffies (DO NOT USE THIS OR ELSE ...)
   ```
-- **[skew_tick](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=weight_single%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20and%20weight_many.-,skew_tick,-%3D%20%20%20%20%20%20%5BKNL%5D%20Offset%20the)** ("Offset the periodic timer tick per cpu to mitigate xtime_lock contentio") </br>
+- **[skew_tick](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#:~:text=weight_single%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20and%20weight_many.-,skew_tick,-%3D%20%20%20%20%20%20%5BKNL%5D%20Offset%20the)** ("Offset the periodic timer tick per cpu to mitigate xtime_lock contention") </br>
 **Note:** This can help with reducing system latency (on larger systems) at the cost of increased power consumption.
   ```bash
   skew_tick=1 # enable
