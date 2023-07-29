@@ -1,6 +1,6 @@
 # A collection of handy-dandy tips, tricks and How-to(s)
 
-## Pacman/package management related stuff.
+## Pacman/package management related stuff
 
 - **searching, installing, unstalling, updating and upgrading with pacman**
 
@@ -133,6 +133,42 @@
   # Refresh
   sudo pacman -Syy
   ```
+- **command-not-found** (suggest a package(s) containing the missing command)
+  ```bash
+  # update pacman files db
+  sudo pacman -Fy
+  
+  # enable pacman files db weekly refresh
+  sudo systemctl enable pacman-filesdb-refresh.timer
+
+  # for `zsh` append to ~/.zshrc
+  command_not_found_handler() {
+    local pkg=$(pacman -Fq "$1")
+
+    if [[ -z "$pkg" ]]; then
+            printf "zsh: command not found: %s\n" "$1"
+    else 
+            printf  "\"%s\" may be found in the following package(s):\n\t%s\n" "$1" "$pkg"
+    fi
+
+    return 127
+  }
+
+  # for `bash` append to ~/.bashrc
+  command_not_found_handle() {
+    local pkg=$(pacman -Fq "$1")
+
+    if [[ -z "$pkg" ]]; then
+            printf "bash: command not found: %s\n" "$1"
+    else 
+            printf  "\"%s\" may be found in the following package(s):\n\t%s\n" "$1" "$pkg"
+    fi
+
+    return 127
+  }
+
+  ```
+
 
 ## Useful packages to install
 
@@ -183,7 +219,10 @@
   sudo pacman -S --needed nerd-fonts
   ```
 
-- **pkgfile** (command-not-found).
+- ~~**pkgfile** (command-not-found).~~
+  > Pacman provides this [functionality](https://wiki.archlinux.org/title/Pacman#Search_for_a_package_that_contains_a_specific_file) thus rendering this pakage redundant. See [above](#pacmanpackage-management-related-stuff) for an alternative.
+  <details>
+  
   > In case you run a command that is not available on your system pkgfile hook will suggest a package that contains said command
   ```bash
   sudo pacman -S --needed pkgfile
@@ -200,6 +239,8 @@
   # for zsh
   echo "source /usr/share/doc/pkgfile/command-not-found.zsh" >> ~/.zshrc
   ```
+  
+  </details>
 
 - **[irqbalance](https://wiki.archlinux.org/index.php/improving_performance#irqbalance)** (spread out interrupts across all cores) </br>
   > This is may help with increased system throughput but will result in increased system latency and jitter
